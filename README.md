@@ -15,11 +15,11 @@ How to run the application?
 First clone the repository.
 
 ```
-git clone https://github.com/asifrahaman13/healthcare.git
+https://github.com/ArifRahaman/JU-Srijan-Healthcare-website.git
 ```
 
 </br>
-
+//
 ## CHATBOT BACKEND 
 
 Next enter into the backend directory.
