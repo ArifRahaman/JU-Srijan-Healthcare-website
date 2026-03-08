@@ -126,15 +126,15 @@ flowchart TD
     frontend_pages_room__id__js["room/[id].js"]
 
     chatbot_backend_main_py --> chatbot_backend_msgsend_py
+    backend_routers_users_user_interaction_js --> backend_schemas_schemas_js
+    backend_routers_users_user_interaction_js --> backend_routers_users_user_middlware_js
     backend_routers_doctors_doctors_signup_js --> backend_email_email_js
     backend_routers_doctors_doctors_signup_js --> backend_schemas_schemas_js
-    backend_routers_users_user_middlware_js --> backend_schemas_schemas_js
     backend_routers_utility_utility_js --> backend_email_email_js
     backend_routers_utility_utility_js --> backend_schemas_schemas_js
+    backend_routers_users_user_middlware_js --> backend_schemas_schemas_js
     backend_routers_users_user_signup_js --> backend_email_email_js
     backend_routers_users_user_signup_js --> backend_schemas_schemas_js
-    backend_routers_users_user_interaction_js --> backend_routers_users_user_middlware_js
-    backend_routers_users_user_interaction_js --> backend_schemas_schemas_js
     frontend_components_Contact_jsx --> frontend_components_Success_jsx
     frontend_pages_doctor__slug__js --> frontend_components_Success_jsx
 
@@ -159,4 +159,4 @@ flowchart TD
 ```
 
 ---
-> 🤖 *Last automated update: 2026-03-08 11:14:13*
+> 🤖 *Last automated update: 2026-03-08 11:16:36*
