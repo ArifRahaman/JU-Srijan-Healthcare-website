@@ -88,7 +88,7 @@ yarn run dev
 
 ### Chatbot Backend
 
-- **POST /**: Handle chatbot interaction and communication
+- **POST /postquestion**: Handle chatbot interaction and communication
 
 ## Contributing
 
@@ -102,6 +102,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ```mermaid
 flowchart TD
+    backend_connection_connection_js["connection/connection.js"]
     backend_email_email_js["email/email.js"]
     backend_routers_doctors_doctors_signup_js["doctors/doctors_signup.js"]
     backend_routers_users_user_interaction_js["users/user_interaction.js"]
@@ -112,29 +113,28 @@ flowchart TD
     chatbot_backend_main_py["chatbot-backend/main.py"]
     chatbot_backend_msgsend_py["chatbot-backend/msgsend.py"]
     frontend_components_Contact_jsx["components/Contact.jsx"]
-    frontend_components_Loader_jsx["components/Loader.jsx"]
     frontend_components_Success_jsx["components/Success.jsx"]
     frontend_pages__app_tsx["pages/_app.tsx"]
     frontend_pages_doctor__slug__js["doctor/[slug].js"]
     frontend_pages_room__id__js["room/[id].js"]
 
     chatbot_backend_main_py --> chatbot_backend_msgsend_py
-    frontend_components_Contact_jsx --> frontend_components_Success_jsx
-    frontend_components_Contact_jsx --> frontend_components_Loader_jsx
-    backend_routers_users_user_signup_js --> backend_email_email_js
-    backend_routers_users_user_signup_js --> backend_schemas_schemas_js
-    backend_routers_utility_utility_js --> backend_email_email_js
-    backend_routers_utility_utility_js --> backend_schemas_schemas_js
-    backend_routers_doctors_doctors_signup_js --> backend_email_email_js
     backend_routers_doctors_doctors_signup_js --> backend_schemas_schemas_js
+    backend_routers_doctors_doctors_signup_js --> backend_email_email_js
+    backend_routers_users_user_middlware_js --> backend_schemas_schemas_js
+    backend_routers_utility_utility_js --> backend_schemas_schemas_js
+    backend_routers_utility_utility_js --> backend_email_email_js
     backend_routers_users_user_interaction_js --> backend_routers_users_user_middlware_js
     backend_routers_users_user_interaction_js --> backend_schemas_schemas_js
-    backend_routers_users_user_middlware_js --> backend_schemas_schemas_js
+    frontend_components_Contact_jsx --> frontend_components_Success_jsx
+    backend_routers_users_user_signup_js --> backend_schemas_schemas_js
+    backend_routers_users_user_signup_js --> backend_email_email_js
     frontend_pages_doctor__slug__js --> frontend_components_Success_jsx
 
     classDef backend fill:#1a1a2e,stroke:#7c6cf8,color:#e8eaf6
     classDef frontend fill:#0d1b2a,stroke:#00e8a2,color:#e8eaf6
     classDef config fill:#1a0a0a,stroke:#f5a623,color:#e8eaf6
+    class backend_connection_connection_js backend
     class backend_email_email_js backend
     class backend_routers_doctors_doctors_signup_js backend
     class backend_routers_users_user_interaction_js backend
@@ -145,7 +145,6 @@ flowchart TD
     class chatbot_backend_main_py backend
     class chatbot_backend_msgsend_py backend
     class frontend_components_Contact_jsx frontend
-    class frontend_components_Loader_jsx frontend
     class frontend_components_Success_jsx frontend
     class frontend_pages__app_tsx frontend
     class frontend_pages_doctor__slug__js backend
@@ -153,4 +152,4 @@ flowchart TD
 ```
 
 ---
-> 🤖 *Last automated update: 2026-03-08 10:47:30*
+> 🤖 *Last automated update: 2026-03-08 10:52:35*
