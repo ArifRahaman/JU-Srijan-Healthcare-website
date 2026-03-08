@@ -1,101 +1,156 @@
-# Doco
+# JU Srijan Healthcare Website
 
-The tech stack used in the projects are as follows:
+A comprehensive healthcare platform designed to streamline interactions between doctors and patients. The system leverages modern web technologies to facilitate doctor-patient appointments, user management, and an integrated chatbot for enhanced user engagement.
 
-- TypeScript
-- Node JS
-- Express
-- Next JS
-- Nodemon
+## Features
 
-Please ensure you have the aboeve packages installed, frameworks installed.
+- **Doctor Management**: Sign up and manage doctor profiles, including education, experience, and department.
+- **User Management**: User registration and authentication with email verification.
+- **Appointment Scheduling**: Users can schedule appointments with doctors, and doctors can view their appointments.
+- **Patient History**: Track patient history with comments and meeting details.
+- **Chatbot Integration**: A FastAPI-based chatbot backend for user interaction.
+- **Email Notifications**: Integrated email notifications for user verification and alerts.
+- **Security**: Implemented OTP-based verification for secure access.
+- **Responsive Frontend**: Built with Next.js for high-performance user experience.
 
-How to run the application?
+## Tech Stack
 
-First clone the repository.
+- **Backend**: Node.js, Express.js, MongoDB, Mongoose
+- **Frontend**: Next.js, React.js
+- **Chatbot**: FastAPI, Python
+- **Dev Tools**: Nodemon, Yarn
+- **Other**: CORS, dotenv
 
-```
-https://github.com/ArifRahaman/JU-Srijan-Healthcare-website.git
-```
+## Installation Instructions
 
-</br>
-//
-## CHATBOT BACKEND 
+Clone the repository:
 
-Next enter into the backend directory.
-
-```
-cd chatbot-backend/
-```
-
-Create a virtual environment. 
-
-```
-virtualenv .venv
+```bash
+git clone https://github.com/ArifRahaman/JU-Srijan-Healthcare-website.git
 ```
 
-Activate the virtual environment. In unix based system like the Linux or Mac OS you can follow the following commands: 
+## Usage Guide
 
-```
-source .venv/bin/activate
-```
+### Backend
 
-Now install the required dependencies.
+Navigate to the backend directory, install dependencies, and run the server:
 
-```
-pip install -r requirements.txt
-```
-
-**Next enter the data into the .env file.**
-
-Now run the backend server.
-
-```
-uvicorn main:app --reload --port=5000
-```
-</br>
-
-## BACKEND 
-Next you need to run the backend application.
-
-```
+```bash
 cd backend/
-```
-
-Install the necessary dependencies.
-
-```
 yarn install
-```
-
-Next you need to enter your email address, mongodb uri and two factor authentication password for your application in the .env file.
-
-- For the gmail go to the manage settings section of your gmail account. On the left side you will see the security tab. click on it. Now click on the "2-Step Verification" under the "How you sign in to Google". Scroll down to find the "App passwords" function. Next click on it and enter the required details to get 16 digit app password. Copy it. https://myaccount.google.com/security
-
-Now run the application
-
-```
 nodemon index.js
 ```
 
-</br>
+Ensure your `.env` file contains:
 
-## FRONTEND
+- `MONGODB_URI`: Your MongoDB connection string
+- `EMAIL`: Your email for sending notifications
+- `EMAIL_PASSWORD`: 16-digit app password from Google for email sending
 
-Next you need to run the front end application.Open another terminal.
+### Chatbot Backend
 
+Navigate to the chatbot-backend directory, create a virtual environment, and run the server:
+
+```bash
+cd chatbot-backend/
+virtualenv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn main:app --reload --port=5000
 ```
+
+### Frontend
+
+Navigate to the frontend directory, install dependencies, and run the Next.js application:
+
+```bash
 cd frontend/
-```
-
-Install the necessary dependencies.
-
-```
 yarn install
-```
-
-Run the next js application
-
-```
 yarn run dev
 ```
+
+## Environment Variables
+
+- **Backend**:
+  - `MONGODB_URI`: MongoDB connection string
+  - `EMAIL`: Email address for notifications
+  - `EMAIL_PASSWORD`: Google app-specific password
+- **Chatbot Backend**:
+  - Configure as needed in the `.env` file within `chatbot-backend/`.
+
+## API Reference
+
+### Backend Endpoints
+
+- **/doctors/**: Doctor signup and profile management
+- **/users/**: User signup and appointment scheduling
+- **/utility/**: Utility functions for the platform
+
+### Chatbot Backend
+
+- **POST /**: Handle chatbot interaction and communication
+
+## Contributing
+
+Please ensure that you have proper access and permissions before making contributions. Contributions should align with the project's architecture and coding standards. Submit pull requests for review.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Architecture
+
+```mermaid
+flowchart TD
+    backend_email_email_js["email/email.js"]
+    backend_routers_doctors_doctors_signup_js["doctors/doctors_signup.js"]
+    backend_routers_users_user_interaction_js["users/user_interaction.js"]
+    backend_routers_users_user_middlware_js["users/user_middlware.js"]
+    backend_routers_users_user_signup_js["users/user_signup.js"]
+    backend_routers_utility_utility_js["utility/utility.js"]
+    backend_schemas_schemas_js["schemas/schemas.js"]
+    chatbot_backend_main_py["chatbot-backend/main.py"]
+    chatbot_backend_msgsend_py["chatbot-backend/msgsend.py"]
+    frontend_components_Contact_jsx["components/Contact.jsx"]
+    frontend_components_Loader_jsx["components/Loader.jsx"]
+    frontend_components_Success_jsx["components/Success.jsx"]
+    frontend_pages__app_tsx["pages/_app.tsx"]
+    frontend_pages_doctor__slug__js["doctor/[slug].js"]
+    frontend_pages_room__id__js["room/[id].js"]
+
+    chatbot_backend_main_py --> chatbot_backend_msgsend_py
+    frontend_components_Contact_jsx --> frontend_components_Success_jsx
+    frontend_components_Contact_jsx --> frontend_components_Loader_jsx
+    backend_routers_users_user_signup_js --> backend_email_email_js
+    backend_routers_users_user_signup_js --> backend_schemas_schemas_js
+    backend_routers_utility_utility_js --> backend_email_email_js
+    backend_routers_utility_utility_js --> backend_schemas_schemas_js
+    backend_routers_doctors_doctors_signup_js --> backend_email_email_js
+    backend_routers_doctors_doctors_signup_js --> backend_schemas_schemas_js
+    backend_routers_users_user_interaction_js --> backend_routers_users_user_middlware_js
+    backend_routers_users_user_interaction_js --> backend_schemas_schemas_js
+    backend_routers_users_user_middlware_js --> backend_schemas_schemas_js
+    frontend_pages_doctor__slug__js --> frontend_components_Success_jsx
+
+    classDef backend fill:#1a1a2e,stroke:#7c6cf8,color:#e8eaf6
+    classDef frontend fill:#0d1b2a,stroke:#00e8a2,color:#e8eaf6
+    classDef config fill:#1a0a0a,stroke:#f5a623,color:#e8eaf6
+    class backend_email_email_js backend
+    class backend_routers_doctors_doctors_signup_js backend
+    class backend_routers_users_user_interaction_js backend
+    class backend_routers_users_user_middlware_js backend
+    class backend_routers_users_user_signup_js backend
+    class backend_routers_utility_utility_js backend
+    class backend_schemas_schemas_js backend
+    class chatbot_backend_main_py backend
+    class chatbot_backend_msgsend_py backend
+    class frontend_components_Contact_jsx frontend
+    class frontend_components_Loader_jsx frontend
+    class frontend_components_Success_jsx frontend
+    class frontend_pages__app_tsx frontend
+    class frontend_pages_doctor__slug__js backend
+    class frontend_pages_room__id__js backend
+```
+
+---
+> 🤖 *Last automated update: 2026-03-08 10:47:30*
