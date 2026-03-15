@@ -8,8 +8,8 @@ const Navbar = () => {
 
   useEffect(() => {
     try {
-      const userToken = localStorage.getItem("user_access_token");
-      const doctorToken = localStorage.getItem("doctor_access_token");
+      const userToken = localStorage.getItem("user");
+      const doctorToken = localStorage.getItem("token");
       if (userToken || doctorToken) {
         setIsAuthenticated(true);
       }
@@ -20,8 +20,8 @@ const Navbar = () => {
 
   function handleLogout() {
     try {
-      localStorage.removeItem("user_access_token");
-      localStorage.removeItem("doctor_access_token");
+      localStorage.removeItem("token");
+      localStorage.removeItem("doctor");
       window.location.href = "/";
     } catch (error) {
       console.error("Error removing localStorage items", error);
