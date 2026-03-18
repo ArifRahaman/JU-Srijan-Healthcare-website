@@ -5,59 +5,65 @@ import Success from "./Success.jsx";
 
 const BACKEND_DOMAIN = process.env.NEXT_PUBLIC_BACKEND_DOMAIN;
 
+const SUCCESS_STATUS_CODE = 200;
+const ERROR_STATUS_CODE = 404;
+const TOAST_DISPLAY_DURATION_MS = 3000;
+
 const ContactUsPage = () => {
-  const [message, setMessage] = useState({
-    msg: "",
-    statuscode: 0,
+  const [responseMessage, setResponseMessage] = useState({
+    text: "",
+    statusCode: 0,
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [contactDetails, setContactDetails] = useState({
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
 
-  function handleChange(e) {
-    setContactDetails((contactDetails) => ({
-      ...contactDetails,
-      [e.target.name]: e.target.value,
+  function handleInputChange(event) {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
     }));
   }
-  async function SendConcern(e) {
-    e.preventDefault();
+
+  async function submitContactForm(event) {
+    event.preventDefault();
     setIsLoading(true);
     try {
-      const contact = await axios.post(`${BACKEND_DOMAIN}/utility/contact-us`, {
-        name: contactDetails.name,
-        email: contactDetails.email,
-        message: contactDetails.message,
+      const response = await axios.post(`${BACKEND_DOMAIN}/utility/contact-us`, {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
       });
 
-      if (contact) {
+      if (response) {
         setIsLoading(false);
-        setMessage({ msg: "Your message is sent successfully", statuscode: 200});
+        setResponseMessage({ text: "Your message is sent successfully", statusCode: SUCCESS_STATUS_CODE });
       }
-    } catch (err) {
-      console.log(err);
-      setMessage({ msg: "There was a problem asociated.", statuscode: 404 });
+    } catch (error) {
+      console.error("Error sending contact form:", error);
+      setResponseMessage({ text: "There was a problem associated.", statusCode: ERROR_STATUS_CODE });
     }
-    handleShowToast();
+    displayToast();
   }
 
   const [showToast, setShowToast] = useState(false);
 
   // Function to show the toast
-  const handleShowToast = () => {
+  const displayToast = () => {
     setShowToast(true);
     setTimeout(() => {
       setShowToast(false);
-    }, 3000); // Hide the toast after 3 seconds (adjust as needed)
+    }, TOAST_DISPLAY_DURATION_MS); // Hide the toast after 3 seconds
   };
 
   return (
     <>
       <div className="relative">
-        {showToast && <Success message={message} />}
+        {showToast && <Success message={responseMessage} />}
       </div>
 
       {isLoading && <Loader />}
@@ -82,7 +88,7 @@ const ContactUsPage = () => {
                     className="w-full border p-2 rounded-md focus:outline-none focus:border-blue-500"
                     placeholder="Your Name"
                     onChange={(e) => {
-                      handleChange(e);
+                      handleInputChange(e);
                     }}
                   />
                 </div>
@@ -101,7 +107,7 @@ const ContactUsPage = () => {
                     className="w-full border p-2 rounded-md focus:outline-none focus:border-blue-500"
                     placeholder="Your Email"
                     onChange={(e) => {
-                      handleChange(e);
+                      handleInputChange(e);
                     }}
                   />
                 </div>
@@ -120,7 +126,7 @@ const ContactUsPage = () => {
                     className="w-full border p-2 rounded-md focus:outline-none focus:border-blue-500"
                     placeholder="Your Message"
                     onChange={(e) => {
-                      handleChange(e);
+                      handleInputChange(e);
                     }}
                   ></textarea>
                 </div>
@@ -129,7 +135,7 @@ const ContactUsPage = () => {
                   type="submit"
                   className="bg-blue-500 text-white py-2 px-4 rounded-full font-semibold hover:bg-blue-600 transition duration-300"
                   onClick={(e) => {
-                    SendConcern(e);
+                    submitContactForm(e);
                   }}
                 >
                   Send Message
